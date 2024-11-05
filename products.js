@@ -12,8 +12,8 @@ let products =[
         "id":1002,
     "title":"cat food 25lb bag",
     "description":"A 25 pounds bg of <em>irresistable</em>,organic goodness for you",
-    "price":30.00,
-    "image":"images/galaxy.jpg",
+    "price":40.00,
+    "image":"images/baseketball.jpg",
     "availableInventory":10,
     "rating":2
     },
@@ -22,7 +22,7 @@ let products =[
     "title":"cat food 25lb bag",
     "description":"A 25 pounds bg of <em>irresistable</em>,organic goodness for you",
     "price":5.00,
-    "image":"images/download.jpg",
+    "image":"images/badminton.jpg",
     "availableInventory":10,
     "rating":2
     },
@@ -31,7 +31,7 @@ let products =[
     "title":"cat food 25lb bag",
     "description":"A 25 pounds bg of <em>irresistable</em>,organic goodness for you",
     "price":20.00,
-    "image":"images/download.jpg",
+    "image":"images/download4.jpg",
     "availableInventory":10,
     "rating":2
     },
@@ -40,7 +40,7 @@ let products =[
     "title":"cat food 25lb bag",
     "description":"A 25 pounds bg of <em>irresistable</em>,organic goodness for you",
     "price":20.00,
-    "image":"images/download.jpg",
+    "image":"images/music.jpg",
     "availableInventory":10,
     "rating":2
     },
@@ -49,8 +49,10 @@ let products =[
     "title":"cat food 25lb bag",
     "description":"A 25 pounds bg of <em>irresistable</em>,organic goodness for you",
     "price":20.00,
-    "image":"images/download.jpg",
+    "image":"images/football.jpg",
     "availableInventory":10,
     "rating":2
-    }
+    },
+
+ 
 ]
