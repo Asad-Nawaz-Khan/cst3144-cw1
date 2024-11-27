@@ -11,40 +11,102 @@
 
     <!-- Added CSS for flexbox -->
     <style>
-        /* Body background color */
+        /* Body background and layout */
         body {
             background-image: url('images/gal.jpg');
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
-
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
         }
 
+        /* Global reset for all elements */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+
         /* Navigation bar styling */
-        nav {
+        /* nav {
             background-color: rgb(58, 58, 58);
-            /* background-image: url('images/galaxy.jpg'); */
-            /* background-size: cover;
-        background-repeat: no-repeat;
-        background-attachment: fixed; */
             border: 1px solid blue;
             padding: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            /* width: 50%; */
         }
-
-        /* .nav:hover{
-            background-color: red;
-        } */
 
         nav h2 {
             color: white;
             margin: 0;
             font-size: 24px;
-        }
+        } */
 
+
+        .search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between input and button */
+}
+
+.search-bar input[type="text"] {
+    padding: 10px 15px;
+    font-size: 1rem;
+    border: 2px solid #ff9900; /* Matches the nav border accent */
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+    background-color: #28283c;
+    color: #ffffff;
+}
+
+.search-bar input[type="text"]::placeholder {
+    color: #b3b3b3;
+}
+
+.search-bar input[type="text"]:focus {
+    border-color: #ffaa33; /* Slightly lighter accent color when focused */
+}
+
+ .search-bar button {
+    padding: 10px 20px;
+    background-color: #ff9900;
+    color: #1f1f2e;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: 5px; 
+} 
+
+.search-bar button .fa-cart-plus {
+    font-size: 1.2rem;
+}
+
+.search-bar button:hover {
+    background-color: #ffaa33; /* Lighter accent color on hover */
+}
+
+.search-bar button:disabled {
+    background-color: #555555; /* Greyed out when disabled */
+    cursor: not-allowed;
+    color: #a1a1a1;
+}
+/* 
         .search-bar {
             display: flex;
             align-items: center;
@@ -56,9 +118,9 @@
             border: none;
             border-radius: 5px;
             margin-right: 10px;
-        }
+        } */
 
-        nav button {
+        /* nav button {
             background-color: #fff;
             color: #4CAF50;
             border: 2px solid #fff;
@@ -76,7 +138,7 @@
         nav button:hover {
             background-color: #102382;
             color: white;
-        }
+        } */
 
         /* Flexbox container to align product items next to each other */
         .product-container {
@@ -90,7 +152,8 @@
 
         /* Updated product box size */
         .product-item {
-            flex:1 1 calc(33.33% - 20px); /*Ensures 3 items per row with spacing */
+            flex: 1 1 calc(33.33% - 20px);
+            /*Ensures 3 items per row with spacing */
             /* background-color: #3a3a5a; */
             color: #e0e0e0;
             padding: 15px;
@@ -207,25 +270,7 @@
             background-color: red;
         }
 
-        /* Reset default styling */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
 
-        /* Body styling */
-        body {
-            background-color: #1e1e2f;
-            color: #e0e0e0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
 
         /* Container styling */
         #app {
@@ -246,7 +291,7 @@
         }
 
         /* Navbar for experiment.html */
-        nav {
+        /* nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -259,14 +304,33 @@
         nav h2 {
             font-size: 1.6rem;
             color: #e0e0e0;
-        }
-
+        } */
+/* 
         .search-bar input[type="text"] {
             padding: 5px 10px;
             border: 2px solid #ffcc00;
             border-radius: 5px;
             font-size: 2rem;
-        }
+        } */
+        nav {
+    background-color: #1f1f2e; /* Dark background for modern feel */
+    border-bottom: 3px solid #ff9900; /* Adds an accent color to the bottom */
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px; /* Smooth edges */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
+}
+
+nav h2 {
+    color: #ffffff;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0;
+    text-transform: uppercase; /* Makes the title stand out */
+    letter-spacing: 2px; /* Adds spacing between letters */
+}
 
         nav button {
             padding: 5px 15px;
@@ -322,7 +386,7 @@
             margin: 5px 0;
         }
 
-        .product-item button {
+        /* .product-item button {
             margin-top: 10px;
             width: 100%;
             padding: 10px;
@@ -332,7 +396,31 @@
             border-radius: 5px;
             font-size: 1rem;
             cursor: pointer;
-        }
+        } */
+        
+        /* .product-item button{
+            padding: 5px 15px;
+            background-color: #ffcc00;
+            color: #1e1e2f;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+        } */
+        .product-item button {
+    padding: 10px 20px;
+    background-color: #ff9900;
+    color: #1f1f2e;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: 5px; 
+} 
 
         .product-item button:hover {
             background-color: #ff8800;
@@ -403,23 +491,25 @@
 
         /* Responsive adjustments */
         @media (max-width: 900px) {
-    .product-item {
-        flex: 1 1 calc(50% - 20px); /* 2 items per row on medium screens */
-    }
-}
+            .product-item {
+                flex: 1 1 calc(50% - 20px);
+                /* 2 items per row on medium screens */
+            }
+        }
 
-@media (max-width: 600px) {
-    .product-item {
-        flex: 1 1 100%; /* 1 item per row on small screens */
-    }
-}
+        @media (max-width: 600px) {
+            .product-item {
+                flex: 1 1 100%;
+                /* 1 item per row on small screens */
+            }
+        }
     </style>
 </head>
 
 <body>
     <div id="app">
 
-        <nav>
+        <nav >
             <h2>After School Activities</h2>
             <div class="search-bar">
                 <input type="text" placeholder="Search activities" v-model="searchQuery">
@@ -429,6 +519,13 @@
                 </button>
             </div>
         </nav>
+        <div v-if="showProduct">
+            <label for="sortOrder">Sort by Price:</label>
+            <select id="sortOrder" v-model="sortOrder">
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+            </select>
+        </div>
 
 
         <header>
@@ -474,6 +571,7 @@
                 </div>
             </div>
 
+
             <div v-else>
                 <h2>Checkout</h2>
 
@@ -486,9 +584,9 @@
                         <p>Quantity: {{ item.quantity }}</p>
 
                         <div class="quantity-control">
-                            <button v-on:click="increaseQuantity(item)">+</button>
+                            <!-- <button v-on:click="increaseQuantity(item)">+</button> -->
                             <span>{{ item.quantity }}</span>
-                            <button v-on:click="decreaseQuantity(item)" :disabled="item.quantity === 1">-</button>
+                            <!-- <button v-on:click="decreaseQuantity(item)" :disabled="item.quantity === 1">-</button> -->
                         </div>
 
                         <button v-on:click="removeFromCart(item)">Remove</button>
@@ -499,26 +597,43 @@
                 <!-- user inputs data here -->
                 <p>
                     <strong>First Name:</strong>
-                    <input v-model.trim="order.firstName" />
+                    <input v-model.trim="order.firstName" @input="validateFirstName" />
+                    <span v-if="!isFirstNameValid" style="color: red;">*First name cannot contain numbers</span>
                 </p>
+
                 <p>
                     <strong>Last Name:</strong>
-                    <input v-model="order.lastName" />
+                    <input v-model.trim="order.lastName" @input="validateLastName" />
+                    <span v-if="!isLastNameValid" style="color: red;">*Last name cannot contain numbers</span>
                 </p>
-                <p><strong>Address:</strong> <input v-model="order.address"></p>
-                <p><strong>City:</strong> <input v-model="order.city"></p>
+
+
+
+                <p>
+                    <strong>Address:</strong>
+                    <input v-model="order.address" />
+                    <span v-if="!isAddressValid" style="color: red;">*Required</span>
+                </p>
+
+                <p>
+                    <strong>City:</strong>
+                    <input v-model="order.city" />
+                    <span v-if="!isCityValid" style="color: red;">*Required</span>
+                </p>
 
                 <p>
                     <strong>State:</strong>
                     <select v-model="order.state">
                         <option disabled value="">Select State</option>
-                        <option v-for="(state, key) in states" v-bind:value="state">
-                            {{ key }}
-                        </option>
+                        <option v-for="(state, key) in states" :value="state">{{ key }}</option>
                     </select>
+                    <span v-if="!isStateValid" style="color: red;">*Required</span>
                 </p>
-                <p><strong>Zip/Postal Code:</strong> <input v-model.number="order.zip" type="number" /></p>
-
+                <p>
+                    <strong>Zip/Postal Code:</strong>
+                    <input v-model.number="order.zip" type="number" @input="validateZip" />
+                    <span v-if="!isZipValid" style="color: red;">*Invalid Zip Code</span>
+                </p>
                 <p>
                     <input type="checkbox" id="gift" v-model="order.gift" value="true"
                         v-bind:true-value="order.sendGift" v-bind:false-value="order.dontSendGift">
@@ -586,6 +701,8 @@
                 },
                 cart: [],
                 showProduct: true,
+                searchQuery: "", // For the search bar
+                sortOrder: "asc", // Default sorting order
             },
 
             methods: {
@@ -597,11 +714,9 @@
                     if (index > -1) {
                         this.cart.splice(index, 1);
                     }
-                    if(this.cart.length ===0 ){
+                    if (this.cart.length === 0) {
                         this.showProduct = true;
-                    } 
-
-                    
+                    }
                 },
                 showCheckout() {
                     if (this.cart.length > 0) {
@@ -610,17 +725,30 @@
                         alert("Please add a product to the cart before checking out.");
                     }
                 },
+                validateFirstName() {
+                    this.isFirstNameValid = /^[A-Za-z]+$/.test(this.order.firstName);
+                },
+                validateLastName() {
+                    this.isLastNameValid = /^[A-Za-z]+$/.test(this.order.lastName);
+                },
+                validateZip() {
+                    this.isZipValid = /^\d{5}$/.test(this.order.zip); // assuming a 5-digit zip code
+                },
                 submitForm() {
-                    alert("Order submitted");
+                    if (this.isFormValid) {
+                        alert("Order submitted");
+                    } else {
+                        alert("Please fill out all required fields.");
+                    }
                 },
                 canAddToCart(product) {
                     return product.availableInventory > this.cartCount(product.id);
                 },
                 cartCount(id) {
                     return this.cart.filter(cartId => cartId === id).length;
-                }
-            },
+                },
 
+            },
             computed: {
                 cartItemCount() {
                     return this.cart.length || "";
@@ -628,15 +756,11 @@
                 itemsLeft() {
                     return this.product.availableInventory - this.cartItemCount;
                 },
-                sortedProducts() {
-                    // Sort the products array by price
-                    function compare(a, b) {
-                        if (a.price > b.price) return 1;
-                        if (a.price < b.price) return -1;
-                        return 0;
-                    }
-                    return this.products.sort(compare);
-                },
+                // sortedProducts() {
+                // Sort the products array by price
+                //return this.products.sort((a, b) => a.price - b.price);
+
+                //},
                 cartItems() {
                     return this.products
                         .filter(product => this.cart.includes(product.id))
@@ -647,14 +771,12 @@
                             };
                         });
                 },
-                cartTotal() {
-                    return this.cartItems.reduce((total, item) => {
-                        return total + item.price * item.quantity;
-                    }, 0);
-                }
-            }
 
-        });
+
+
+            }
+        })
+
     </script>
 </body>
 
