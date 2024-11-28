@@ -776,13 +776,16 @@ nav h2 {
                         return this.sortOrder === "asc" ? a.price - b.price : b.price - a.price;
                     });
                 },
+           
                 cartTotal() {
                     return this.cartItems.reduce((total, item) => {
                         return total + item.price * item.quantity;
                     }, 0);
                 },
-
-
+               // Validation Computed Properties
+               isFirstNameValid() {
+                    return this.order.firstName.trim() !== '';
+                },
 
             }
         })
