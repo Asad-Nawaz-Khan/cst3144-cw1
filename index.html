@@ -792,6 +792,23 @@ nav h2 {
                 isAddressValid() {
                     return this.order.address.trim() !== '';
                 },
+                isCityValid() {
+                    return this.order.city.trim() !== '';
+                },
+                isStateValid() {
+                    return this.order.state !== '';
+                },
+                isZipValid() {
+                    return this.order.zip > 0;
+                },
+                isFormValid() {
+                    return this.isFirstNameValid &&
+                        this.isLastNameValid &&
+                        this.isAddressValid &&
+                        this.isCityValid &&
+                        this.isStateValid &&
+                        this.isZipValid;
+                }
 
             }
         })
