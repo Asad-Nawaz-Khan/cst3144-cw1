@@ -11,102 +11,40 @@
 
     <!-- Added CSS for flexbox -->
     <style>
-        /* Body background and layout */
+        /* Body background color */
         body {
             background-image: url('images/gal.jpg');
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            color: #e0e0e0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+
         }
-
-        /* Global reset for all elements */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-
 
         /* Navigation bar styling */
-        /* nav {
+        nav {
             background-color: rgb(58, 58, 58);
+            /* background-image: url('images/galaxy.jpg'); */
+            /* background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed; */
             border: 1px solid blue;
             padding: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            /* width: 50%; */
         }
+
+        /* .nav:hover{
+            background-color: red;
+        } */
 
         nav h2 {
             color: white;
             margin: 0;
             font-size: 24px;
-        } */
+        }
 
-
-        .search-bar {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Space between input and button */
-}
-
-.search-bar input[type="text"] {
-    padding: 10px 15px;
-    font-size: 1rem;
-    border: 2px solid #ff9900; /* Matches the nav border accent */
-    border-radius: 8px;
-    outline: none;
-    transition: all 0.3s ease-in-out;
-    background-color: #28283c;
-    color: #ffffff;
-}
-
-.search-bar input[type="text"]::placeholder {
-    color: #b3b3b3;
-}
-
-.search-bar input[type="text"]:focus {
-    border-color: #ffaa33; /* Slightly lighter accent color when focused */
-}
-
- .search-bar button {
-    padding: 10px 20px;
-    background-color: #ff9900;
-    color: #1f1f2e;
-    font-size: 1rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
-    display: flex;
-    align-items: center;
-    gap: 5px; 
-} 
-
-.search-bar button .fa-cart-plus {
-    font-size: 1.2rem;
-}
-
-.search-bar button:hover {
-    background-color: #ffaa33; /* Lighter accent color on hover */
-}
-
-.search-bar button:disabled {
-    background-color: #555555; /* Greyed out when disabled */
-    cursor: not-allowed;
-    color: #a1a1a1;
-}
-/* 
         .search-bar {
             display: flex;
             align-items: center;
@@ -118,9 +56,9 @@
             border: none;
             border-radius: 5px;
             margin-right: 10px;
-        } */
+        }
 
-        /* nav button {
+        nav button {
             background-color: #fff;
             color: #4CAF50;
             border: 2px solid #fff;
@@ -138,7 +76,7 @@
         nav button:hover {
             background-color: #102382;
             color: white;
-        } */
+        }
 
         /* Flexbox container to align product items next to each other */
         .product-container {
@@ -270,7 +208,25 @@
             background-color: red;
         }
 
+        /* Reset default styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        /* Body styling */
+        body {
+            background-color: #1e1e2f;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
 
         /* Container styling */
         #app {
@@ -291,7 +247,7 @@
         }
 
         /* Navbar for experiment.html */
-        /* nav {
+        nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -304,33 +260,14 @@
         nav h2 {
             font-size: 1.6rem;
             color: #e0e0e0;
-        } */
-/* 
+        }
+
         .search-bar input[type="text"] {
             padding: 5px 10px;
             border: 2px solid #ffcc00;
             border-radius: 5px;
             font-size: 2rem;
-        } */
-        nav {
-    background-color: #1f1f2e; /* Dark background for modern feel */
-    border-bottom: 3px solid #ff9900; /* Adds an accent color to the bottom */
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 8px; /* Smooth edges */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
-}
-
-nav h2 {
-    color: #ffffff;
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin: 0;
-    text-transform: uppercase; /* Makes the title stand out */
-    letter-spacing: 2px; /* Adds spacing between letters */
-}
+        }
 
         nav button {
             padding: 5px 15px;
@@ -386,7 +323,7 @@ nav h2 {
             margin: 5px 0;
         }
 
-        /* .product-item button {
+        .product-item button {
             margin-top: 10px;
             width: 100%;
             padding: 10px;
@@ -396,31 +333,7 @@ nav h2 {
             border-radius: 5px;
             font-size: 1rem;
             cursor: pointer;
-        } */
-        
-        /* .product-item button{
-            padding: 5px 15px;
-            background-color: #ffcc00;
-            color: #1e1e2f;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-        } */
-        .product-item button {
-    padding: 10px 20px;
-    background-color: #ff9900;
-    color: #1f1f2e;
-    font-size: 1rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
-    display: flex;
-    align-items: center;
-    gap: 5px; 
-} 
+        }
 
         .product-item button:hover {
             background-color: #ff8800;
@@ -509,7 +422,7 @@ nav h2 {
 <body>
     <div id="app">
 
-        <nav >
+        <nav>
             <h2>After School Activities</h2>
             <div class="search-bar">
                 <input type="text" placeholder="Search activities" v-model="searchQuery">
@@ -519,14 +432,14 @@ nav h2 {
                 </button>
             </div>
         </nav>
-        <div v-if="showProduct">
+        <div>
             <label for="sortOrder">Sort by Price:</label>
             <select id="sortOrder" v-model="sortOrder">
                 <option value="asc">Ascending</option>
                 <option value="desc">Descending</option>
             </select>
         </div>
-
+        
 
         <header>
             <h1 v-text="sitename"></h1>
@@ -570,7 +483,7 @@ nav h2 {
                     </div>
                 </div>
             </div>
-
+          
 
             <div v-else>
                 <h2>Checkout</h2>
@@ -584,9 +497,9 @@ nav h2 {
                         <p>Quantity: {{ item.quantity }}</p>
 
                         <div class="quantity-control">
-                            <!-- <button v-on:click="increaseQuantity(item)">+</button> -->
+                            <button v-on:click="increaseQuantity(item)">+</button>
                             <span>{{ item.quantity }}</span>
-                            <!-- <button v-on:click="decreaseQuantity(item)" :disabled="item.quantity === 1">-</button> -->
+                            <button v-on:click="decreaseQuantity(item)" :disabled="item.quantity === 1">-</button>
                         </div>
 
                         <button v-on:click="removeFromCart(item)">Remove</button>
@@ -756,10 +669,10 @@ nav h2 {
                 itemsLeft() {
                     return this.product.availableInventory - this.cartItemCount;
                 },
-                // sortedProducts() {
-                // Sort the products array by price
-                //return this.products.sort((a, b) => a.price - b.price);
-
+               // sortedProducts() {
+                    // Sort the products array by price
+                    //return this.products.sort((a, b) => a.price - b.price);
+              
                 //},
                 cartItems() {
                     return this.products
@@ -771,19 +684,47 @@ nav h2 {
                             };
                         });
                 },
+
                 sortedProducts() {
                     return [...this.products].sort((a, b) => {
                         return this.sortOrder === "asc" ? a.price - b.price : b.price - a.price;
                     });
                 },
+
+
+
                 cartTotal() {
                     return this.cartItems.reduce((total, item) => {
                         return total + item.price * item.quantity;
                     }, 0);
                 },
-
-
-
+                // Validation Computed Properties
+                isFirstNameValid() {
+                    return this.order.firstName.trim() !== '';
+                },
+                isLastNameValid() {
+                    return this.order.lastName.trim() !== '';
+                },
+                isAddressValid() {
+                    return this.order.address.trim() !== '';
+                },
+                isCityValid() {
+                    return this.order.city.trim() !== '';
+                },
+                isStateValid() {
+                    return this.order.state !== '';
+                },
+                isZipValid() {
+                    return this.order.zip > 0;
+                },
+                isFormValid() {
+                    return this.isFirstNameValid &&
+                        this.isLastNameValid &&
+                        this.isAddressValid &&
+                        this.isCityValid &&
+                        this.isStateValid &&
+                        this.isZipValid;
+                }
             }
         })
 

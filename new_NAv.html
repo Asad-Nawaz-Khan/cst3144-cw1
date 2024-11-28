@@ -771,19 +771,47 @@ nav h2 {
                             };
                         });
                 },
+
                 sortedProducts() {
                     return [...this.products].sort((a, b) => {
                         return this.sortOrder === "asc" ? a.price - b.price : b.price - a.price;
                     });
                 },
+
+
+
                 cartTotal() {
                     return this.cartItems.reduce((total, item) => {
                         return total + item.price * item.quantity;
                     }, 0);
                 },
-
-
-
+                // Validation Computed Properties
+                isFirstNameValid() {
+                    return this.order.firstName.trim() !== '';
+                },
+                isLastNameValid() {
+                    return this.order.lastName.trim() !== '';
+                },
+                isAddressValid() {
+                    return this.order.address.trim() !== '';
+                },
+                isCityValid() {
+                    return this.order.city.trim() !== '';
+                },
+                isStateValid() {
+                    return this.order.state !== '';
+                },
+                isZipValid() {
+                    return this.order.zip > 0;
+                },
+                isFormValid() {
+                    return this.isFirstNameValid &&
+                        this.isLastNameValid &&
+                        this.isAddressValid &&
+                        this.isCityValid &&
+                        this.isStateValid &&
+                        this.isZipValid;
+                }
             }
         })
 

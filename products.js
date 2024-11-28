@@ -1,56 +1,59 @@
 let products =[
     {
     "id":1001,
-    "title":"cat food 25lb bag",
-    "description":"A 25 pounds bg of <em>irresistable</em>,organic goodness for you",
-    "price":20.00,
+    "title":"Cricket Academy",
+    "description":"",
+    "price":100.00,
     "image":"images/download.jpg",
-    "availableInventory":10,
-    "rating":2
+    "availableInventory":20,
+    "rating":4,
+    
+   
+    
     },
     {
         "id":1002,
-    "title":"cat food 25lb bag",
-    "description":"A 25 pounds bg of <em>irresistable</em>,organic goodness for you",
-    "price":40.00,
+    "title":"BaseketBall Academy",
+    "description":"",
+    "price":90.00,
     "image":"images/baseketball.jpg",
-    "availableInventory":10,
+    "availableInventory":15,
     "rating":2
     },
     {
         "id":1003,
-    "title":"cat food 25lb bag",
-    "description":"A 25 pounds bg of <em>irresistable</em>,organic goodness for you",
-    "price":5.00,
+    "title":"Badminton Academy",
+    "description":"",
+    "price":50.00,
     "image":"images/badminton.jpg",
     "availableInventory":10,
     "rating":2
     },
     {
         "id":1004,
-    "title":"cat food 25lb bag",
-    "description":"A 25 pounds bg of <em>irresistable</em>,organic goodness for you",
-    "price":20.00,
+    "title":"Karate Academy",
+    "description":"",
+    "price":140.00,
     "image":"images/download4.jpg",
-    "availableInventory":10,
+    "availableInventory":25,
     "rating":2
     },
     {
         "id":1005,
-    "title":"cat food 25lb bag",
-    "description":"A 25 pounds bg of <em>irresistable</em>,organic goodness for you",
+    "title":"Music Academy",
+    "description":"",
     "price":20.00,
     "image":"images/music.jpg",
-    "availableInventory":10,
+    "availableInventory":30,
     "rating":2
     },
     {
     "id":1006,
-    "title":"cat food 25lb bag",
+    "title":"Football Academy",
     "description":"A 25 pounds bg of <em>irresistable</em>,organic goodness for you",
-    "price":20.00,
+    "price":200.00,
     "image":"images/football.jpg",
-    "availableInventory":10,
+    "availableInventory":50,
     "rating":2
     },
 
