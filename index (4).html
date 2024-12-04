@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Vue.js Depot</title>
+
+    <!---Reference ro Vue.js on the CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+    <!-- <script src="products.js"></script> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+
+</head>
+
+<body>
+    <!---An HTML element where we mount our app-->
+   <!---- #app is the mounting element in the HTML.Vue will take 
+   control of this element and replace its content with the template 
+   and data defined in the Vue instance.-->
+
+    <div id="app">
+
+        <nav>
+            <h2>After School Activities</h2>
+            <div class="search-bar">
+                <input type="text" placeholder="Search activities" v-model="searchQuery" v-on:input="fetchSearch">
+                <!--V-on used bind event listeners to html and handle dom events like click,sumit,input and trigger methods or functions when those events occurs -->
+                <button v-on:click="showCheckout" :disabled="cartItemCount === 0"><!--V-on:click,event listner added so when u clickthis button ,showCheckout fucntion is called and this button is disablled if cartitemCount are zero-->
+                    {{cartItemCount}}
+                    <span class="fa-solid fa-cart-plus"></span> Checkout
+                </button>
+            </div>
+        </nav>
+
+        <!-- Sort-By -->
+        <div class="sort-filter">
+            <label for="sortKey">Sort by:</label>
+            <select id="sortKey" v-model="sortKey">
+                <option value="title">Title</option>
+                <option value="price">Price</option>
+                <option value="availableInventory">Availability</option>
+                <option value="location">Location</option>
+            </select>
+
+            <label for="sortOrder">Order:</label>
+            <select id="sortOrder" v-model="sortOrder">
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+            </select>
+        </div>
+        
+        <header> 
+            <!---v-text used to update text conent in html element,any chnage in (vue instancs) data variable sitename will be updated here-->
+            <h1 v-text="sitename"></h1>
+         </header>
+
+        <main>
+            <div v-if="showProduct"> 
+                <!-- Flex container for products -->
+                <div class="product-container">
+                    <!-- Loop through products and display each in a flex container -->
+                    <div v-for="product in sortedProducts" :key="product.id" class="product-item">
+                    <!-- <div v-for="product in visibleProducts" :key="product.id" class="product-item"> -->
+
+                        <!-- Flexbox for image and description next to each other -->
+                        <div class="product-flex">
+                            <figure class="product-image">
+                                <!---V-bind a vue directive used to bind images,used for images -->
+                                <img v-bind:src="product.image">
+                            </figure>
+
+                            <div class="product-description">
+                                <!--V-text used to bind text-->
+                                <h2 v-text="product.title"></h2>
+                                <h2 v-text="product.location"></h2>
+                                <!--v-html used to bind data when raw html tag is involved-->
+                                <p v-html="product.description"></p>
+                                <p>Price: {{product.price}}</p>
+                                <p>Available Stock: {{product.availableInventory - cartCount(product.id)}}</p>
+                                <!-- <div>
+                                    <span v-for="n in product.rating">★</span>
+                                    <span v-for="n in 5 - product.rating">☆</span>
+                                </div> -->
+                                <div>
+                                    <span v-for="n in Math.min(product.rating, 5)">★</span>
+                                    <span v-for="n in 5 - product.rating">☆</span>
+                                </div>
+                                  <!--If the canAddToCart is true the button appears, if not, the button does not 
+                                    appear  Vue removes from the DOM the part related to the false condition
+                                    2 similar buttons: one is enabled, and the other is disabled
+                                      • We show the enabled button when user can add more products, and the other button when the user cannot
+                                       • We use v-if and v-else to select which button is show
+ 
+                                v-if shows element if it conditon is true if false v-else is used and its element is shown  based on the conditons so canaddtocart button shown if v-if condition true orlese v-else condtion is used and the button is disabled -->
+                                <button class="addbutton" v-on:click="addToCart(product)"
+                                  v-if="canAddToCart(product)">Add to Cart</button> 
+                                <button disabled="disabled" v-else>Add to Cart</button>
+                                <span v-if="product.availableInventory === cartCount(product.id)">All out!</span>
+                                <span v-else-if="product.availableInventory - cartCount(product.id) < 5">
+                                    Only {{product.availableInventory - cartCount(product.id)}} left!
+                                </span>
+                                <span v-else>Buy now!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+
+            <div v-else>
+                <h2>Checkout</h2>
+
+                <!-- Display selected products in the cart -->
+                <div v-if="cartItems.length > 0" class="checkout-container">
+                    <div v-for="item in cartItems" :key="item.id" class="cart-item">
+                        <img v-bind:src="item.image" alt="Product image">
+                        <p><strong>{{ item.title }}</strong></p>
+                        <p>Price: ${{ item.price }}</p>
+                        <p>Quantity: {{ item.quantity }}</p>
+
+                        <div class="quantity-control">
+                            <!-- <button v-on:click="increaseQuantity(item)">+</button> -->
+                            <span>{{ item.quantity }}</span>
+                            <!-- <button v-on:click="decreaseQuantity(item)" :disabled="item.quantity === 1">-</button> -->
+                        </div>
+
+                        <button v-on:click="removeFromCart(item)">Remove</button>
+                    </div>
+                </div>
+                <p><strong>Total: ${{ cartTotal }}</strong></p>
+
+                <!-- user inputs data here -->
+                <p>
+                    <strong>First Name:</strong>
+                    <input v-model.trim="order.firstName" @input="validateFirstName" />
+                    <span v-if="!isFirstNameValid" style="color: red;">*First name cannot contain numbers</span>
+                </p>
+
+                <p>
+                    <strong>Last Name:</strong>
+                    <input v-model.trim="order.lastName" @input="validateLastName" />
+                    <span v-if="!isLastNameValid" style="color: red;">*Last name cannot contain numbers</span>
+                </p>
+
+                <p>
+                    <strong>Phone Number:</strong>
+                    <input v-model.trim="order.phone" @input="validatePhone" />
+                    <span v-if="!isPhoneValid" style="color: red;">*Invalid phone number</span>
+                </p>
+
+
+                <p>
+                    <strong>Address:</strong>
+                    <input v-model="order.address" />
+                    <span v-if="!isAddressValid" style="color: red;">*Required</span>
+                </p>
+
+                <p>
+                    <strong>City:</strong>
+                    <input v-model="order.city" />
+                    <span v-if="!isCityValid" style="color: red;">*Required</span>
+                </p>
+
+                <p>
+                    <strong>State:</strong>
+                    <select v-model="order.state">
+                        <option disabled value="">Select State</option>
+                        <option v-for="(state, key) in states" :value="state">{{ key }}</option>
+                    </select>
+                    <span v-if="!isStateValid" style="color: red;">*Required</span>
+                </p>
+                <p>
+                    <strong>Zip/Postal Code:</strong>
+                    <input v-model.number="order.zip" type="number" @input="validateZip" />
+                    <span v-if="!isZipValid" style="color: red;">*Invalid Zip Code</span>
+                </p>
+                <p>
+                    <input type="checkbox" id="gift" v-model="order.gift" value="true"
+                        v-bind:true-value="order.sendGift" v-bind:false-value="order.dontSendGift">
+                    <label for="gift">Ship as Gift?</label>
+                </p>
+                <p>
+                    <input type="radio" id="home" value="Home" v-model="order.method">
+                    <label for="home">Home</label>
+                </p>
+                <p>
+                    <input type="radio" id="business" value="Business" v-model="order.method">
+                    <label for="business">Business</label>
+                </p>
+
+                <h2>Order Information</h2>
+                <p>First Name: {{order.firstName}}</p>
+                <p>Last Name: {{order.lastName}}</p>
+                <p>Phone Number: {{order.phone}}</p>
+                <p>Address: {{order.address}}</p>
+                <p>City: {{order.city}}</p>
+                <p>Zip: {{order.zip}}</p>
+                <p>State: {{order.state}}</p>
+                <p>Gift?: {{order.gift}}</p>
+                <p>Method: {{order.method}}</p>
+                <button v-on:click="submitForm">Place Order</button>
+        </main>
+
+    </div>
+
+
+
+    </main>
+    </div>
+    <!----SCRIPT Element where we create our app---->
+    <script type="text/javascript">
+        let webstore = new Vue({ //vue instance
+            //el is property that tells vue instaces where to mount the app and give data and take control of this element
+            el: '#app', //The 'option object': DOM(Document Object Model) mounting point
+            data: { //contains all variables where data is stored
+                sitename: 'Activites',
+                products: [],
+                sortKey: 'title', // Default sorting key
+
+                order: {
+                    firstName: '',
+                    lastName: '',
+                    phone: '',
+                    address: '',
+                    city: '',
+                    zip: '',
+                    state: '',
+                    method: 'home',
+                    sendGift: "Send as a gift",
+                    dontSendGift: "Do not send as a gift"
+                },
+                states: {
+                    AL: "Alabama",
+                    AR: "Arizona",
+                    CA: "California",
+                    NV: "Nevada"
+                },
+                cart: [], //array to store items in shopping cart
+                showProduct: true,
+                searchQuery: "", // For the search bar
+                sortOrder: "asc", // Default sorting order
+            },
+
+
+       //Methods is a way to make functions or is where functions are made
+       //Methdks are functions used to perform actions,they are excuted when called
+
+            methods: { 
+                // fetcher() {
+                //     fetch('http://localhost:3000/collection/product', {
+                //         method: 'GET', // set the HTTP method as 'GET'
+                //         headers: {
+                //             'Content-Type': 'application/json', // set the data type as JSON
+                //         },
+                //         // body: JSON.stringify(newProduct), // need to stringify the JSON object
+                //     })
+                //         .then(response => response.json())
+                //         .then(responseJSON => {
+                //             this.prodcuts=responseJSON;
+                //         })
+                //         .catch((error) => {
+                //             document.getElementById('error').innerText = error;
+                //         });
+                // },
+                
+               //Adding a product to the cart means pushing the product’s id property from the product data onto the cart array
+                //function name addtoCart,so when this function is called in the cart array products id is pushed into it.This function is called when add to cart button is pressed.
+                addToCart(product) {
+                    this.cart.push(product.id);
+                },
+                // removeFromCart(item) {
+                //     const index = this.cart.findIndex(cartId => cartId === item.id);
+                //     if (index > -1) {
+                //         this.cart.splice(index, 1);
+                //     }
+                //     if (this.cart.length === 0) {
+                //         this.showProduct = true;
+                //     }
+                // },
+                // removeFromCart(item) {
+                //     const index = this.cart.findIndex(cartId => cartId === item.id);
+                //     if (index > -1) {
+                //         this.cart.splice(index, 1);
+                //     }
+                //     this.showProduct = this.cart.length === 0;
+                // },
+                removeFromCart(item) {
+                    const index = this.cart.findIndex(cartId => cartId === item.id);
+                    if (index > -1) {
+                        this.cart.splice(index, 1);
+                    }
+                    if (this.cart.length === 0) {
+                        this.showProduct = true;
+                    }
+                },
+
+                showCheckout() {
+                    if (this.cart.length > 0) {
+                        this.showProduct = !this.showProduct;
+                    } else {
+                        alert("Please add a product to the cart before checking out.");
+                    }
+                },
+                validateFirstName() {
+                    this.isFirstNameValid = /^[A-Za-z]+$/.test(this.order.firstName);
+                },
+                validateLastName() {
+                    this.isLastNameValid = /^[A-Za-z]+$/.test(this.order.lastName);
+                },
+                // validatePhone() {
+                //     this.isPhoneValid = /^[0-9]+$/.test(this.order.phone) && this.order.phone.trim() !== '';
+                // },
+                validatePhone() {
+                    // Allow digits, spaces, dashes, and parentheses for phone validation
+                    this.isPhoneValid = /^[0-9\s\-()]+$/.test(this.order.phone.trim());
+                },
+
+                validateZip() {
+                    this.isZipValid = /^\d{5}$/.test(this.order.zip); // assuming a 5-digit zip code
+                },
+                submitForm() {
+                    // if (this.isFormValid) {
+
+                    //     const newOrder = this.order;
+                    //     // set the url to your server and route
+                    //     fetch('http://localhost:3000/collection/order', {
+                    //         method: 'POST', // set the HTTP method as 'POST'
+                    //         headers: {
+                    //             'Content-Type': 'application/json', // set the data type as JSON
+                    //         },
+                    //         body: JSON.stringify(newOrder), // need to stringify the JSON object
+                    //     })
+                    //         .then(response => response.json())
+                    //         .then(responseJSON => {
+                    //             // document.getElementById('response').innerText = JSON.stringify(responseJSON);
+                    //             alert(JSON.stringify(responseJSON))
+                    //            this.fetchPUT();
+                    //         })
+                    //         .catch((error) => {
+                    //             // document.getElementById('error').innerText = error;
+                    //             alert(error)
+
+                    //         });
+                    //     alert("Order submitted");
+
+                    // } else {
+                    //     alert("Please fill out all required fields.");
+                    // }
+
+
+
+
+                    // const newOrder = {
+                    //     ...this.order,
+                    //     id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`, // Generate a unique ID
+                    //     Items: this.cart, // Include cart items in the order
+                    //     totalAmount: this.cartTotal, // Add additional order details
+                    // };
+
+                    const newOrder = {
+                        ...this.order,
+                        id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`, // Generate a unique ID
+                        Items: this.cartItems.map(item => ({
+                            id: item.id,
+                            title: item.title,
+                            quantity: item.quantity,
+                            price: item.price // Include price if needed
+                        })), // Include cart items with quantities
+                        totalAmount: this.cartTotal, // Add additional order details
+                    };
+
+
+
+                    fetch('http://localhost:3000/collection/order', {
+                        method: 'POST', // Set the HTTP method as 'POST'
+                        headers: {
+                            'Content-Type': 'application/json', // Set the data type as JSON
+                        },
+                        body: JSON.stringify(newOrder), // Stringify the JSON object
+                    })
+                        .then(response => response.json())
+                        .then(responseJSON => {
+                            alert("Order placed successfully!");
+                            console.log("Order Response:", responseJSON);
+                            this.fetchPUT();
+                        })
+                        .catch((error) => {
+                            alert("Error placing order: " + error);
+                        });
+
+                },
+                canAddToCart(product) {
+                    return product.availableInventory > this.cartCount(product.id);
+                },
+                cartCount(id) {
+                    return this.cart.filter(cartId => cartId === id).length;
+                },
+
+                fetchPUT() {
+
+                    this.cartItems.forEach(product => {
+                        // Ensure availableInventory does not drop below 0
+                        const newAvailability = {
+                            availableInventory: Math.max(0, product.availableInventory - product.quantity),
+                        };
+
+                        console.log(`Updating product ${product.title} (ID: ${product._id}) with new inventory:`, newAvailability);
+
+                        fetch(`http://localhost:3000/collection/product/${product._id}`, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(newAvailability),
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log(`Product ${product.title} updated successfully:`, data);
+                            })
+                            .catch(error => {
+                                console.error(`Error updating product ${product.title}:`, error);
+                            });
+                    });
+                },
+                fetchGET() {
+                    fetch('http://localhost:3000/collection/product', {
+                        method: 'GET', // set the HTTP method as 'GET'
+                        headers: {
+                            'Content-Type': 'application/json', // set the data type as JSON
+                        },
+                        // body: JSON.stringify(newProduct), // need to stringify the JSON object
+                    })
+                        .then(response => response.json())
+                        .then(responseJSON => {
+                            this.products = responseJSON;
+                        })
+                        .catch((error) => {
+                            document.getElementById('error').innerText = error;
+                        });
+                },
+
+
+                fetchSearch() {
+                    if (!this.searchQuery) {
+                        this.fetchGET();
+                    }
+                    else {
+                        fetch(`http://localhost:3000/search/product?q=${this.searchQuery}`, {
+                            method: 'GET', // set the HTTP method as 'GET'
+                            headers: {
+                                'Content-Type': 'application/json', // set the data type as JSON
+                            },
+                            // body: JSON.stringify(newProduct), // need to stringify the JSON object
+                        })
+                            .then(response => response.json())
+                            .then(responseJSON => {
+                                this.products = responseJSON;
+                            })
+                            .catch((error) => {
+                                document.getElementById('error').innerText = error;
+                            });
+
+
+                    }
+                }
+
+            },
+           
+            //derived values that automatically update when their dependent data changes,
+           //(2-way binding) DO NOT accept parameter 
+            computed: { //recomputed automatically when other inner (inside of its function) data variables are updated:
+                cartItemCount() {
+                    return this.cart.length || "";
+                },
+                itemsLeft() {
+                    return this.product.availableInventory - this.cartItemCount;
+                },
+                // sortedProducts() {
+                // Sort the products array by price
+                //return this.products.sort((a, b) => a.price - b.price);
+
+                //},
+                cartItems() {
+                    return this.products
+                        .filter(product => this.cart.includes(product.id))
+                        .map(product => {
+                            return {
+                                ...product,
+                                quantity: this.cartCount(product.id)
+                            };
+                        });
+                },
+
+                // sortedProducts() {
+                //     return [...this.products].sort((a, b) => {
+                //         if (this.sortKey === "title" || this.sortKey === "availability") {
+                //             // String comparison for title or availability
+                //             return this.sortOrder === "asc"
+                //                 ? a[this.sortKey].localeCompare(b[this.sortKey])
+                //                 : b[this.sortKey].localeCompare(a[this.sortKey]);
+                //         } else if (this.sortKey === "price" || this.sortKey === "availableInventory") {
+                //             // Numeric comparison for price or availability
+                //             return this.sortOrder === "asc"
+                //                 ? a[this.sortKey] - b[this.sortKey]
+                //                 : b[this.sortKey] - a[this.sortKey];
+                //         }
+                //         return 0;
+                //     });
+                // },
+
+                sortedProducts() {
+                    // if (!this.sortKey) return this.products; // No sort key, return original order
+                    return [...this.products].sort((a, b) => {
+                        const order = this.sortOrder === "asc" ? 1 : -1;
+                        if (typeof a[this.sortKey] === "string") {
+                            return a[this.sortKey].localeCompare(b[this.sortKey]) * order;
+                        } else if (typeof a[this.sortKey] === "number") {
+                            return (a[this.sortKey] - b[this.sortKey]) * order;
+                        }
+                        return 0; // Fallback
+                    });
+                },
+                // filteredProducts() {
+                //     return this.products.filter(product =>
+                //         product.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+                //     );
+                // },
+                visibleProducts() {
+                    // return this.sortedProducts.filter(product =>
+                    //     product.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+                    // );
+                    return this.products
+                },
+
+
+                cartTotal() {
+                    return this.cartItems.reduce((total, item) => {
+                        return total + item.price * item.quantity;
+                    }, 0);
+                },
+                // Validation Computed Properties
+                isFirstNameValid() {
+                    return this.order.firstName.trim() !== '';
+                },
+                isLastNameValid() {
+                    return this.order.lastName.trim() !== '';
+                },
+                // isPhoneValid() {
+                //     return /^[0-9]+$/.test(this.order.phone) && this.order.phone.trim() !== '';
+                // },
+                isPhoneValid() {
+                    return /^[0-9\s\-()]+$/.test(this.order.phone.trim());
+                },
+                isAddressValid() {
+                    return this.order.address.trim() !== '';
+                },
+                isCityValid() {
+                    return this.order.city.trim() !== '';
+                },
+                isStateValid() {
+                    return this.order.state !== '';
+                },
+                // isZipValid() {
+                //     return this.order.zip > 0;
+                // },
+                isZipValid() {
+                    return /^\d{5}$/.test(this.order.zip); // Matches exactly 5 digits
+                },
+
+                isFormValid() {
+                    return this.isFirstNameValid &&
+                        this.isLastNameValid &&
+                        this.isPhoneValid
+                    this.isAddressValid &&
+                        this.isCityValid &&
+                        this.isStateValid &&
+                        this.isZipValid;
+                }
+            },
+            created() { this.fetchGET() }
+
+            // created: function  () {
+            //     fetch('http://localhost:3000/collection/product', {
+            //         method: 'GET', // set the HTTP method as 'GET'
+            //         headers: {
+            //             'Content-Type': 'application/json', // set the data type as JSON
+            //         },
+            //         // body: JSON.stringify(newProduct), // need to stringify the JSON object
+            //     })
+            //         .then(response => response.json())
+            //         .then(responseJSON => {
+            //             this.products = responseJSON;
+            //         })
+            //         .catch((error) => {
+            //             document.getElementById('error').innerText = error;
+            //         });
+            // }
+        })
+
+    </script>
+</body>
+
+</html>
