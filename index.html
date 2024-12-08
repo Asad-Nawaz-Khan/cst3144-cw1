@@ -331,7 +331,8 @@
                    // PUT: Update an existing resource. 
 
                     //send a new order to server,order details updated and shown in mongodb
-                    fetch('http://localhost:3000/collection/order', {//connects monogodb order to frontend ,all order data is send to order collection in mongodb
+                    // fetch('http://localhost:3000/collection/order',
+                    fetch('https://backend-4bjz.onrender.com/collection/order',{//connects monogodb order to frontend ,all order data is send to order collection in mongodb
                         method: 'POST', // Set the HTTP method as 'POST sends data to the server to create a new resource'
                         headers: {
                             'Content-Type': 'application/json', // Set the data type as JSON
@@ -376,7 +377,7 @@
                         console.log(`Updating product ${product.title} (ID: ${product._id}) with new inventory:`, newAvailability);
 
                         //Updates the product's inventory on the server after an order is placed.
-                        fetch(`http://localhost:3000/collection/product/${product._id}`, { //Sends an HTTP PUT Request
+                        fetch(`https://backend-4bjz.onrender.com/collection/product/${product._id}`, { //Sends an HTTP PUT Request
                             method: 'PUT',// Updates an existing resource on the server Method: PUT is used for updating an existing resource on the server.
                             headers: { 'Content-Type': 'application/json' }, // head specifies Data sent is JSON.
                             body: JSON.stringify(newAvailability),// Sends updated inventory data  body Sends the updated inventory as a JSON object.
@@ -394,7 +395,7 @@
                 //Retrieves product data from the server to populate the product list in the UI.
                 //The fetchGET function retrieves product data from the server and updates the product list displayed in the user interface
                 fetchGET() {
-                    fetch('http://localhost:3000/collection/product', {//Sends an HTTP GET Request
+                    fetch('https://backend-4bjz.onrender.com/collection/product', {//Sends an HTTP GET Request
                         method: 'GET', // set the HTTP method as 'GET'// Retrieves data from the server.
                         headers: {
                             'Content-Type': 'application/json', // set the data type as JSON ,Specifies that the server should send the response in JSON format.
@@ -419,7 +420,7 @@
                         this.fetchGET();
                     }
                     else {
-                        fetch(`http://localhost:3000/search/product?q=${this.searchQuery}`, {
+                        fetch(`https://backend-4bjz.onrender.com/search/product?q=${this.searchQuery}`, {
                             method: 'GET', // set the HTTP method as 'GET'// Retrieves filtered data based on the search query.
                             headers: {
                                 'Content-Type': 'application/json', // set the data type as JSON
